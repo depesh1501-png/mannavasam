@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mannvasam — Farm to Flame, in Minutes | Fresh South Indian Meal Kits</title>
+<meta name="description" content="Mannvasam delivers farm-fresh, pre-cut South Indian meal kits — sambar, kuzhambu and chutney, ready to cook in 12 minutes. One page: home, products, about &amp; contact.">
+<link rel="icon" href="data:,">
+<style>
+/* ==========================================================================
+   MANNVASAM — "the fragrance of the earth"
+   Design tokens
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  /* ---- color: named after the ingredients that inspired them ---- */
+  --clay:        #B5502E;   /* terracotta pot */
+  --clay-dark:   #8F3D22;
+  --turmeric:    #E3A83B;   /* turmeric root */
+  --turmeric-lt: #F3D48A;
+  --leaf:        #1F3B2A;   /* banana leaf, deep */
+  --leaf-mid:    #3F6B47;   /* curry leaf */
+  --leaf-soft:   #EAF0E7;
+  --ivory:       #FBF5E9;   /* rice */
+  --card:        #FFFDF8;
+  --ink:         #241C14;
+  --ink-soft:    #6B5F52;
+  --line:        #E7DCC8;
+
+  /* ---- type ---- */
+  --f-display: 'Fraunces', serif;
+  --f-body: 'Manrope', sans-serif;
+  --f-mono: 'IBM Plex Mono', monospace;
+
+  /* ---- scale ---- */
+  --gap: clamp(1.25rem, 2vw, 2rem);
+  --radius-organic: 28px 8px 28px 8px;
+  --radius-soft: 14px;
+  --shadow-soft: 0 20px 45px -25px rgba(36,28,20,.45);
+  --shadow-lift: 0 30px 60px -20px rgba(36,28,20,.35);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+
+*,*::before,*::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *,*::before,*::after{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+
+body{
+  margin:0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img,svg{ display:block; max-width:100%; }
+a{ color: inherit; text-decoration: none; }
+ul{ margin:0; padding:0; list-style:none; }
+h1,h2,h3,h4{ font-family: var(--f-display); margin:0; font-weight:600; letter-spacing:-.01em; }
+p{ margin:0; }
+button{ font-family: inherit; }
+
+:focus-visible{
+  outline: 3px solid var(--clay);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap{
+  width: min(1180px, 92%);
+  margin-inline: auto;
+}
+
+.eyebrow{
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--clay);
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+}
+.eyebrow::before{
+  content:"";
+  width: 22px; height: 1px;
+  background: var(--clay);
+  display:inline-block;
+}
+
+.section{ padding: clamp(4rem, 8vw, 7.5rem) 0; }
+.section-dark{ background: var(--leaf); color: var(--leaf-soft); }
+.section-dark .eyebrow{ color: var(--turmeric-lt); }
+.section-dark .eyebrow::before{ background: var(--turmeric-lt); }
+.section-dark h2, .section-dark h3{ color: #FBF5E9; }
+
+.section-head{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: clamp(2rem,4vw,3.5rem);
+  flex-wrap: wrap;
+}
+.section-title{
+  font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+  margin-top: .5rem;
+  max-width: 26ch;
+}
+.section-note{
+  max-width: 34ch;
+  color: var(--ink-soft);
+  font-size: .98rem;
+}
+.section-dark .section-note{ color: #C9D6C6; }
+
+.italic{ font-style: italic; color: var(--clay); }
+.section-dark .italic{ color: var(--turmeric); }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  padding: .9rem 1.6rem;
+  border-radius: 999px;
+  font-weight:700;
+  font-size: .92rem;
+  border: 1px solid transparent;
+  cursor:pointer;
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease), background .3s ease, color .3s ease, border-color .3s ease;
+  white-space: nowrap;
+}
+.btn-primary{ background: var(--clay); color: #fff; box-shadow: 0 14px 30px -14px rgba(181,80,46,.65); }
+.btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 22px 40px -16px rgba(181,80,46,.75); background: var(--clay-dark); }
+.btn-ghost{ background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-ghost:hover{ transform: translateY(-3px); background: var(--ink); color: var(--ivory); }
+.section-dark .btn-ghost{ color: var(--ivory); border-color: rgba(251,245,233,.5); }
+.section-dark .btn-ghost:hover{ background: var(--ivory); color: var(--leaf); }
+.btn svg{ width:16px; height:16px; transition: transform .4s var(--ease); }
+.btn:hover svg{ transform: translateX(4px); }
+
+/* ==========================================================================
+   Header / Nav
+   ========================================================================== */
+.site-header{
+  position: fixed; inset: 0 0 auto 0; z-index: 100;
+  padding: 1.1rem 0;
+  transition: background .5s var(--ease), padding .5s var(--ease), box-shadow .5s var(--ease);
+}
+.site-header::before{
+  content:"";
+  position:absolute; inset:0;
+  background: rgba(251,245,233,.0);
+  backdrop-filter: blur(0px);
+  transition: background .5s var(--ease), backdrop-filter .5s var(--ease);
+  z-index:-1;
+}
+.site-header.is-scrolled{ padding: .7rem 0; }
+.site-header.is-scrolled::before{
+  background: rgba(251,245,233,.86);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px -20px rgba(36,28,20,.5);
+}
+.nav-row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+
+.brand{ display:flex; align-items:center; gap:.65rem; font-family: var(--f-display); }
+.brand-mark{ width:38px; height:38px; flex-shrink:0; }
+.brand-text{ display:flex; flex-direction:column; line-height:1.05; }
+.brand-text b{ font-size: 1.18rem; letter-spacing: .02em; }
+.brand-text span{ font-family: var(--f-mono); font-size: .58rem; letter-spacing:.14em; text-transform:uppercase; color: var(--clay); }
+
+.nav-links{ display:flex; align-items:center; gap: 2.1rem; }
+.nav-links a{
+  position:relative; font-weight:600; font-size:.92rem; padding: .3rem 0;
+}
+.nav-links a::after{
+  content:""; position:absolute; left:0; right:100%; bottom:-2px; height:2px;
+  background: var(--clay); transition: right .4s var(--ease);
+}
+.nav-links a:hover::after, .nav-links a.active::after{ right:0; }
+.nav-links a.active{ color: var(--clay); }
+
+.nav-cta{ display:flex; align-items:center; gap:1rem; }
+.nav-toggle{
+  display:none; width:42px; height:42px; border-radius:50%; border:1px solid var(--ink);
+  background:transparent; cursor:pointer; position:relative;
+}
+.nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+  content:""; position:absolute; left:11px; width:20px; height:2px; background:var(--ink);
+  transition: transform .35s var(--ease), opacity .3s ease, top .3s ease;
+}
+.nav-toggle span{ top:20px; }
+.nav-toggle span::before{ top:-6px; }
+.nav-toggle span::after{ top:6px; }
+.nav-toggle.is-open span{ background: transparent; }
+.nav-toggle.is-open span::before{ top:0; transform: rotate(45deg); }
+.nav-toggle.is-open span::after{ top:0; transform: rotate(-45deg); }
+
+@media (max-width: 900px){
+  .nav-links{
+    position:fixed; inset: 0 0 0 auto; width:min(78vw,340px);
+    background: var(--leaf); color:#fff; flex-direction:column; align-items:flex-start;
+    padding: 6.5rem 2rem 2rem; gap: 1.6rem;
+    transform: translateX(100%); transition: transform .55s var(--ease);
+  }
+  .nav-links.is-open{ transform: translateX(0); }
+  .nav-links a{ font-size:1.1rem; color:#fff; }
+  .nav-links a::after{ background: var(--turmeric); }
+  .nav-cta .btn-ghost{ display:none; }
+  .nav-toggle{ display:block; }
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero{
+  position: relative;
+  padding: clamp(8rem,16vw,11rem) 0 clamp(4rem,8vw,6rem);
+  overflow:hidden;
+  background:
+    radial-gradient(60% 55% at 85% 8%, rgba(227,168,59,.28), transparent 60%),
+    radial-gradient(50% 50% at 5% 90%, rgba(63,107,71,.22), transparent 60%),
+    var(--ivory);
+}
+.hero-grid{
+  display:grid; grid-template-columns: 1.05fr .95fr; gap: 3.5rem; align-items:center;
+}
+.hero-stats-strip{ font-family: var(--f-mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color: var(--ink-soft); margin-bottom: 1.4rem;}
+.hero h1{
+  font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+  line-height: 1.04;
+}
+.hero h1 em{ font-style: italic; color: var(--clay); }
+.hero-lede{
+  margin-top: 1.4rem; max-width: 46ch; font-size: 1.08rem; color: var(--ink-soft);
+}
+.hero-actions{ display:flex; align-items:center; gap:1.1rem; margin-top: 2.3rem; flex-wrap:wrap; }
+
+.hero-stats{
+  display:grid; grid-template-columns: repeat(4,auto); gap: clamp(1.2rem,3vw,2.4rem);
+  margin-top: 3.2rem; padding-top: 2rem; border-top: 1px solid var(--line);
+}
+.stat b{ font-family: var(--f-display); font-size: clamp(1.5rem,2.4vw,2rem); display:block; color: var(--clay);}
+.stat span{ font-size: .78rem; color: var(--ink-soft); }
+
+/* ---- Signature element: the Spice Wheel ---- */
+.spice-wheel-wrap{ position:relative; display:flex; align-items:center; justify-content:center; }
+.spice-wheel{ width: min(420px, 88vw); animation: wheel-spin 46s linear infinite; }
+.spice-wheel-wrap .pot{ position:absolute; top:50%; left:50%; width: 34%; transform: translate(-50%,-50%); animation: none; }
+@keyframes wheel-spin{ to{ transform: rotate(360deg); } }
+.steam-line{ transform-origin: bottom center; animation: steam-rise 3.6s ease-in-out infinite; opacity:0; }
+.steam-line:nth-child(2){ animation-delay: .6s; }
+.steam-line:nth-child(3){ animation-delay: 1.2s; }
+@keyframes steam-rise{
+  0%{ opacity:0; transform: translateY(0) scaleY(.6); }
+  25%{ opacity:.55; }
+  80%{ opacity:0; }
+  100%{ opacity:0; transform: translateY(-26px) scaleY(1.15); }
+}
+.wheel-node{ transition: transform .4s var(--ease); }
+.spice-wheel:hover .wheel-node{ transform: scale(1.12); }
+
+/* ==========================================================================
+   Marquee strip
+   ========================================================================== */
+.marquee{ background: var(--leaf); color:#fff; padding: .85rem 0; overflow:hidden; }
+.marquee-track{ display:flex; gap: 3rem; width: max-content; animation: marquee 26s linear infinite; }
+.marquee:hover .marquee-track{ animation-play-state: paused; }
+.marquee span{ font-family: var(--f-mono); font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; opacity:.9; white-space:nowrap; }
+.marquee span::after{ content:"•"; margin-left:3rem; color: var(--turmeric); }
+@keyframes marquee{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+
+/* ==========================================================================
+   Reveal-on-scroll
+   ========================================================================== */
+[data-reveal]{ opacity:0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+[data-reveal].in-view{ opacity:1; transform: translateY(0); }
+[data-reveal-group] [data-reveal]:nth-child(1){ transition-delay: .05s; }
+[data-reveal-group] [data-reveal]:nth-child(2){ transition-delay: .16s; }
+[data-reveal-group] [data-reveal]:nth-child(3){ transition-delay: .27s; }
+[data-reveal-group] [data-reveal]:nth-child(4){ transition-delay: .38s; }
+[data-reveal-group] [data-reveal]:nth-child(5){ transition-delay: .49s; }
+[data-reveal-group] [data-reveal]:nth-child(6){ transition-delay: .6s; }
+
+/* ==========================================================================
+   Problem / compare columns
+   ========================================================================== */
+.problem-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 1.4rem; }
+.problem-card{
+  background: var(--card); border:1px solid var(--line); border-radius: var(--radius-organic);
+  padding: 1.9rem 1.7rem; transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .4s ease;
+}
+.problem-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-soft); border-color: transparent; }
+.problem-num{ font-family: var(--f-mono); color: var(--clay); font-size:.8rem; }
+.problem-card h3{ font-size: 1.12rem; margin: .9rem 0 .55rem; }
+.problem-card p{ color: var(--ink-soft); font-size: .92rem; }
+
+.compare{ display:grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin-top: 3rem; }
+.compare-card{ border-radius: var(--radius-organic); padding: 2rem; }
+.compare-card.without{ background: #F3E9DD; border: 1px dashed var(--ink-soft); }
+.compare-card.with{ background: var(--leaf); color:#fff; box-shadow: var(--shadow-lift); }
+.compare-card h4{ font-family: var(--f-mono); font-size:.75rem; text-transform:uppercase; letter-spacing:.12em; margin-bottom:1.2rem; }
+.compare-card li{ display:flex; gap:.7rem; padding: .5rem 0; font-size:.94rem; border-bottom: 1px solid rgba(0,0,0,.08); }
+.compare-card.with li{ border-bottom: 1px solid rgba(255,255,255,.12); }
+.compare-card li::before{ content:"—"; color: var(--clay); flex-shrink:0; }
+.compare-card.with li::before{ content:"✓"; color: var(--turmeric); }
+.compare-total{ margin-top:1.3rem; font-family: var(--f-display); font-size:1.5rem; }
+.compare-total span{ font-family: var(--f-mono); font-size:.7rem; display:block; text-transform:uppercase; letter-spacing:.1em; opacity:.7; }
+
+/* ==========================================================================
+   Solution list
+   ========================================================================== */
+.solution-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 1.6rem; }
+.solution-card{
+  padding: 2rem 1.7rem; border-radius: var(--radius-organic); background: var(--card);
+  border: 1px solid var(--line); position:relative; overflow:hidden;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.solution-card::before{
+  content:""; position:absolute; top:-40px; right:-40px; width:110px; height:110px; border-radius:50%;
+  background: var(--turmeric-lt); opacity:.5; transition: transform .6s var(--ease);
+}
+.solution-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-soft); }
+.solution-card:hover::before{ transform: scale(1.3); }
+.solution-icon{ width:44px; height:44px; margin-bottom:1.2rem; position:relative; }
+.solution-card h3{ font-size: 1.15rem; margin-bottom:.5rem; }
+.solution-card p{ color: var(--ink-soft); font-size:.92rem; position:relative; }
+
+/* ==========================================================================
+   Process / steps
+   ========================================================================== */
+.process{ display:grid; grid-template-columns: repeat(4,1fr); gap: 0; position:relative; }
+.process::before{
+  content:""; position:absolute; top:26px; left:6%; right:6%; height:1px;
+  background: repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 16px);
+}
+.section-dark .process::before{ background: repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 8px, transparent 8px 16px); }
+.step{ text-align:center; padding: 0 1rem; position:relative; }
+.step-dot{
+  width: 54px; height:54px; border-radius:50%; background: var(--turmeric); color: var(--leaf);
+  display:flex; align-items:center; justify-content:center; margin: 0 auto 1.3rem; font-family: var(--f-display);
+  font-size:1.3rem; position:relative; z-index:2; transition: transform .4s var(--ease);
+  box-shadow: 0 0 0 6px var(--leaf);
+}
+.step:hover .step-dot{ transform: scale(1.1) rotate(-8deg); }
+.step h4{ font-size: 1.02rem; margin-bottom:.5rem; color:#fff; }
+.step p{ font-size: .86rem; color: #C9D6C6; }
+
+/* ==========================================================================
+   Product cards
+   ========================================================================== */
+.product-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+.product-card{
+  background: var(--card); border-radius: var(--radius-organic); border:1px solid var(--line);
+  overflow:hidden; transition: transform .55s var(--ease), box-shadow .55s var(--ease);
+  display:flex; flex-direction:column;
+}
+.product-card:hover{ transform: translateY(-10px); box-shadow: var(--shadow-lift); }
+.product-media{
+  aspect-ratio: 4/3.1; position:relative; display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.product-media svg{ width: 62%; transition: transform .7s var(--ease); }
+.product-card:hover .product-media svg{ transform: scale(1.08) rotate(-3deg); }
+.product-tag{
+  position:absolute; top:.9rem; left:.9rem; background: rgba(255,255,255,.85); backdrop-filter: blur(4px);
+  font-family: var(--f-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  padding:.35rem .7rem; border-radius:999px;
+}
+.product-time{
+  position:absolute; top:.9rem; right:.9rem; background: var(--leaf); color:#fff;
+  font-family: var(--f-mono); font-size:.62rem; padding:.35rem .7rem; border-radius:999px;
+}
+.product-body{ padding: 1.4rem 1.5rem 1.6rem; display:flex; flex-direction:column; gap:.6rem; flex:1; }
+.product-body h3{ font-size: 1.18rem; }
+.product-body p{ font-size:.88rem; color:var(--ink-soft); flex:1; }
+.product-link{
+  display:inline-flex; align-items:center; gap:.5rem; font-weight:700; font-size:.86rem; color: var(--clay);
+  margin-top:.4rem;
+}
+.product-link svg{ width:14px; height:14px; transition: transform .4s var(--ease); }
+.product-card:hover .product-link svg{ transform: translateX(5px); }
+
+/* ==========================================================================
+   Stats band
+   ========================================================================== */
+.stat-band{ display:grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; text-align:center; }
+.stat-band .stat b{ font-size: clamp(2.1rem,4vw,3rem); color: var(--turmeric); }
+.stat-band .stat span{ color:#C9D6C6; }
+
+/* ==========================================================================
+   Testimonials
+   ========================================================================== */
+.testi-track{ display:flex; gap:1.6rem; overflow-x:auto; scroll-snap-type: x mandatory; padding-bottom:1rem; scrollbar-width:none; }
+.testi-track::-webkit-scrollbar{ display:none; }
+.testi-card{
+  scroll-snap-align:start; flex: 0 0 min(380px,84vw); background: var(--card); border:1px solid var(--line);
+  border-radius: var(--radius-organic); padding: 2rem; display:flex; flex-direction:column; gap:1.2rem;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.testi-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-soft); }
+.testi-stars{ color: var(--turmeric); letter-spacing:.15em; font-size:.9rem; }
+.testi-quote{ font-family: var(--f-display); font-size:1.08rem; font-style:italic; line-height:1.5; }
+.testi-person{ display:flex; align-items:center; gap:.8rem; margin-top:auto; }
+.testi-avatar{
+  width:42px; height:42px; border-radius:50%; background: var(--leaf); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family: var(--f-display); font-size:.95rem;
+}
+.testi-person b{ display:block; font-size:.9rem; }
+.testi-person span{ font-size:.78rem; color: var(--ink-soft); }
+
+/* ==========================================================================
+   FAQ accordion
+   ========================================================================== */
+.faq-list{ max-width: 760px; }
+.faq-item{ border-bottom: 1px solid var(--line); }
+.faq-q{
+  width:100%; text-align:left; background:none; border:none; padding: 1.3rem 0; cursor:pointer;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; font-family: var(--f-display);
+  font-size: 1.08rem; color: var(--ink);
+}
+.faq-q .plus{
+  width:26px; height:26px; border-radius:50%; border:1px solid var(--ink); flex-shrink:0; position:relative;
+  transition: transform .45s var(--ease), background .3s ease, border-color .3s ease;
+}
+.faq-q .plus::before, .faq-q .plus::after{
+  content:""; position:absolute; background: var(--ink); top:50%; left:50%; transition: transform .35s var(--ease), background .3s ease;
+}
+.faq-q .plus::before{ width:10px; height:1.5px; transform:translate(-50%,-50%); }
+.faq-q .plus::after{ width:1.5px; height:10px; transform:translate(-50%,-50%); }
+.faq-item.is-open .plus{ background: var(--clay); border-color: var(--clay); transform: rotate(90deg); }
+.faq-item.is-open .plus::before, .faq-item.is-open .plus::after{ background:#fff; }
+.faq-item.is-open .plus::after{ transform: translate(-50%,-50%) rotate(90deg); opacity:0; }
+.faq-a{ max-height:0; overflow:hidden; transition: max-height .5s var(--ease); }
+.faq-a p{ padding: 0 0 1.4rem; color: var(--ink-soft); max-width: 60ch; }
+
+/* ==========================================================================
+   CTA band
+   ========================================================================== */
+.cta-band{
+  border-radius: 32px; background: var(--leaf); color:#fff; padding: clamp(3rem,6vw,5rem);
+  display:grid; grid-template-columns: 1.2fr .8fr; gap:2rem; align-items:center; position:relative; overflow:hidden;
+}
+.cta-band::before{
+  content:""; position:absolute; width:340px; height:340px; border-radius:50%;
+  background: radial-gradient(circle, rgba(227,168,59,.35), transparent 70%);
+  top:-140px; right:-100px;
+}
+.cta-band h2{ font-size: clamp(1.9rem,3.4vw,2.7rem); max-width: 16ch; }
+.cta-actions{ display:flex; flex-wrap:wrap; gap:1rem; }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer{ background: var(--ink); color: #E7DCC8; padding: 4rem 0 1.6rem; }
+.footer-grid{ display:grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(231,220,200,.15); }
+.footer-brand p{ margin-top:1rem; color:#B7A996; font-size:.9rem; max-width:34ch; }
+.footer-col h5{ font-family: var(--f-mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; margin-bottom:1.1rem; color: var(--turmeric); }
+.footer-col li{ margin-bottom:.6rem; }
+.footer-col a{ font-size:.88rem; color:#D8CDBC; transition: color .3s ease, padding-left .3s ease; }
+.footer-col a:hover{ color: var(--turmeric); padding-left:4px; }
+.footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:1.6rem; font-size:.78rem; color:#8A7C6B; flex-wrap:wrap; gap:1rem; }
+.footer-social{ display:flex; gap:.9rem; }
+.footer-social a{ width:34px; height:34px; border-radius:50%; border:1px solid rgba(231,220,200,.25); display:flex; align-items:center; justify-content:center; transition: background .3s ease, transform .3s ease; }
+.footer-social a:hover{ background: var(--clay); transform: translateY(-3px); border-color: var(--clay); }
+.footer-social svg{ width:15px; height:15px; }
+
+/* ==========================================================================
+   Misc small pages: page-hero (products/about)
+   ========================================================================== */
+.page-hero{
+  padding: clamp(7.5rem,14vw,9.5rem) 0 3.5rem; background: var(--leaf); color:#fff; position:relative; overflow:hidden;
+}
+.page-hero::after{
+  content:""; position:absolute; width:420px; height:420px; border-radius:50%;
+  background: radial-gradient(circle, rgba(227,168,59,.25), transparent 70%); top:-160px; right:-120px;
+}
+.page-hero h1{ color:#fff; font-size: clamp(2.3rem,4.6vw,3.6rem); max-width: 18ch; }
+.page-hero p{ color:#C9D6C6; max-width:52ch; margin-top:1.1rem; font-size:1.02rem; }
+.crumb{ font-family: var(--f-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color: var(--turmeric-lt); }
+
+/* product detail rows */
+.pd-row{ display:grid; grid-template-columns: .9fr 1.1fr; gap: 3.5rem; align-items:center; }
+.pd-row:nth-child(even){ direction: rtl; }
+.pd-row:nth-child(even) > *{ direction: ltr; }
+.pd-media{
+  aspect-ratio:1/.85; border-radius: 32px; display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.pd-media svg{ width:56%; transition: transform .8s var(--ease); }
+.pd-row:hover .pd-media svg{ transform: scale(1.06) rotate(3deg); }
+.pd-meta{ display:flex; gap:.7rem; margin-bottom:1rem; flex-wrap:wrap; }
+.pill{ font-family: var(--f-mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; padding:.4rem .8rem; border-radius:999px; border:1px solid var(--line); }
+.pd-includes{ margin-top:1.3rem; display:grid; gap:.55rem; }
+.pd-includes li{ display:flex; gap:.6rem; font-size:.92rem; align-items:flex-start; }
+.pd-includes li::before{ content:"◆"; color: var(--clay); font-size:.6rem; margin-top:.4em; }
+.pd-block{ padding: clamp(3rem,6vw,4.5rem) 0; border-top:1px solid var(--line); }
+
+/* about page */
+.value-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:1.5rem; }
+.timeline{ position:relative; padding-left: 2.2rem; }
+.timeline::before{ content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background: var(--line); }
+.tl-item{ position:relative; padding-bottom: 2.4rem; }
+.tl-item::before{ content:""; position:absolute; left:-2.2rem; top:4px; width:13px; height:13px; border-radius:50%; background: var(--clay); box-shadow: 0 0 0 4px var(--ivory); }
+.tl-item h4{ font-size:1.1rem; margin-bottom:.4rem; }
+.tl-item span{ font-family: var(--f-mono); font-size:.7rem; color: var(--clay); text-transform:uppercase; letter-spacing:.1em; }
+.tl-item p{ color: var(--ink-soft); font-size:.92rem; margin-top:.4rem; max-width:52ch; }
+
+.contact-grid{ display:grid; grid-template-columns: .9fr 1.1fr; gap: 3rem; }
+.contact-card{ background: var(--card); border:1px solid var(--line); border-radius: var(--radius-organic); padding:2rem; }
+.contact-card + .contact-card{ margin-top:1.2rem; }
+.contact-card h4{ font-family: var(--f-mono); font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; color: var(--clay); margin-bottom:.6rem; }
+.contact-card p, .contact-card a{ font-size:1rem; }
+
+.form-field{ margin-bottom:1.2rem; }
+.form-field label{ display:block; font-size:.8rem; font-weight:700; margin-bottom:.5rem; }
+.form-field input, .form-field textarea{
+  width:100%; border:1px solid var(--line); background: var(--card); border-radius: var(--radius-soft);
+  padding: .85rem 1rem; font-family: var(--f-body); font-size:.95rem; color: var(--ink); transition: border-color .3s ease, box-shadow .3s ease;
+}
+.form-field input:focus, .form-field textarea:focus{ outline:none; border-color: var(--clay); box-shadow: 0 0 0 4px rgba(181,80,46,.12); }
+.form-note{ font-size:.8rem; color: var(--ink-soft); margin-top: .8rem; }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 1020px){
+  .hero-grid{ grid-template-columns: 1fr; }
+  .spice-wheel-wrap{ order:-1; max-width:320px; margin: 0 auto 1rem; }
+  .problem-grid, .solution-grid, .product-grid, .process, .stat-band, .value-grid{ grid-template-columns: repeat(2,1fr); gap:1.2rem;}
+  .compare, .cta-band, .pd-row, .contact-grid, .footer-grid{ grid-template-columns: 1fr; }
+  .pd-row:nth-child(even){ direction: ltr; }
+  .process::before{ display:none; }
+  .footer-grid{ gap: 2rem; }
+}
+@media (max-width: 620px){
+  .hero-stats{ grid-template-columns: repeat(2,1fr); }
+  .problem-grid, .solution-grid, .product-grid, .stat-band, .value-grid{ grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="wrap nav-row">
+    <a href="#home" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <path d="M11 16c0-5 4-9 9-9s9 4 9 9" stroke="#1F3B2A" stroke-width="2" stroke-linecap="round"/>
+        <path d="M8 16h24l-2.4 15.2A4 4 0 0 1 25.7 35H14.3a4 4 0 0 1-3.9-3.8L8 16Z" fill="#B5502E"/>
+        <path d="M14 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#E3A83B" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text"><b>Mannvasam</b><span>Farm to Flame</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#products">Products</a>
+      <a href="#about">About &amp; Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div data-reveal>
+        <p class="hero-stats-strip">South India's Fresh-Ingredient Meal Kit</p>
+        <h1>Cooked like your <em>paati</em> made it.<br>Ready in 12 minutes.</h1>
+        <p class="hero-lede">Farm-picked vegetables, hand-cut and exactly measured into recipe kits for real South Indian meals — sambar, kuzhambu, chutney. You bring the stove, we handle the prep.</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn btn-primary">Explore Kits
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#technology" class="btn btn-ghost">See How It Works</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b><span data-count="12">0</span> min</b><span>Average cook time</span></div>
+          <div class="stat"><b><span data-count="100" data-suffix="%">0</span></b><span>Farm sourced</span></div>
+          <div class="stat"><b><span data-count="0">0</span></b><span>Preservatives added</span></div>
+          <div class="stat"><b><span data-count="5">0</span></b><span>Heirloom recipes</span></div>
+        </div>
+      </div>
+
+      <div class="spice-wheel-wrap" data-reveal>
+        <svg class="spice-wheel" viewBox="0 0 420 420" aria-hidden="true">
+          <circle cx="210" cy="210" r="188" fill="none" stroke="#E7DCC8" stroke-width="1.5" stroke-dasharray="2 10"/>
+          <circle cx="210" cy="210" r="150" fill="none" stroke="#E7DCC8" stroke-width="1"/>
+          <g class="wheel-node"><circle cx="210" cy="34" r="30" fill="#B5502E"/><path d="M198 26q10-10 20 0" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="210" cy="40" r="4" fill="#fff"/></g>
+          <g class="wheel-node"><circle cx="382" cy="210" r="30" fill="#3F6B47"/><path d="M370 200c8-8 16-8 24 0" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="382" cy="218" r="4" fill="#fff"/></g>
+          <g class="wheel-node"><circle cx="303" cy="360" r="30" fill="#E3A83B"/><rect x="292" y="349" width="22" height="22" rx="5" fill="#fff" opacity=".85"/></g>
+          <g class="wheel-node"><circle cx="117" cy="360" r="30" fill="#8F3D22"/><path d="M107 350q10 20 20 0" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>
+          <g class="wheel-node"><circle cx="38" cy="210" r="30" fill="#1F3B2A"/><circle cx="38" cy="210" r="9" fill="#fff" opacity=".85"/></g>
+        </svg>
+        <svg class="pot" viewBox="0 0 160 160" aria-hidden="true">
+          <path class="steam-line" d="M70 42c-6-10 6-14 0-24" stroke="#8F3D22" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path class="steam-line" d="M88 42c-6-10 6-14 0-24" stroke="#8F3D22" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path class="steam-line" d="M106 42c-6-10 6-14 0-24" stroke="#8F3D22" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M28 60h104l3 16H25l3-16Z" fill="#E3A83B"/>
+          <path d="M35 76 44 132a10 10 0 0 0 10 8h52a10 10 0 0 0 10-8l9-56H35Z" fill="#B5502E"/>
+          <ellipse cx="80" cy="76" rx="45" ry="8" fill="#8F3D22"/>
+          <path d="M22 88c-14 2-14 22 0 24" stroke="#8F3D22" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M138 88c14 2 14 22 0 24" stroke="#8F3D22" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Farm-Fresh, Same-Day Processing</span><span>No Washing, No Cutting</span><span>Zero Preservatives</span><span>HACCP-Compliant Kitchens</span><span>Portioned to the Gram</span>
+      <span>Farm-Fresh, Same-Day Processing</span><span>No Washing, No Cutting</span><span>Zero Preservatives</span><span>HACCP-Compliant Kitchens</span><span>Portioned to the Gram</span>
+    </div>
+  </div>
+
+  <!-- ============ PROBLEM ============ -->
+  <section class="section" id="problem">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">The Problem</p>
+          <h2 class="section-title">Cooking well is getting <span class="italic">harder</span> to justify.</h2>
+        </div>
+        <p class="section-note">South Indian food is rich in flavour — but the ninety minutes of washing, peeling and chopping before you even light the stove is quietly pushing people toward takeout.</p>
+      </div>
+
+      <div class="problem-grid" data-reveal-group>
+        <div class="problem-card" data-reveal>
+          <span class="problem-num">01</span>
+          <h3>Prep eats the evening</h3>
+          <p>Cleaning, peeling and cutting vegetables often takes longer than the cooking itself.</p>
+        </div>
+        <div class="problem-card" data-reveal>
+          <span class="problem-num">02</span>
+          <h3>Odd-sized waste</h3>
+          <p>Buying whole vegetables for one recipe leaves leftovers that quietly rot in the fridge.</p>
+        </div>
+        <div class="problem-card" data-reveal>
+          <span class="problem-num">03</span>
+          <h3>Sourcing you can't verify</h3>
+          <p>It's hard to know how fresh, clean or chemical-free your market vegetables really are.</p>
+        </div>
+        <div class="problem-card" data-reveal>
+          <span class="problem-num">04</span>
+          <h3>A busier week, always</h3>
+          <p>Between work and family, from-scratch cooking keeps losing to ordering in.</p>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="compare-card without" data-reveal>
+          <h4>Without Mannvasam</h4>
+          <ul>
+            <li>Buy vegetables across two or three shops</li>
+            <li>Wash everything under running water</li>
+            <li>Peel and cut each ingredient by hand</li>
+            <li>Sort, measure and guess the quantities</li>
+            <li>Store the extra you didn't need</li>
+          </ul>
+          <p class="compare-total"><span>Total prep time</span>45–60 minutes</p>
+        </div>
+        <div class="compare-card with" data-reveal>
+          <h4>With Mannvasam</h4>
+          <ul>
+            <li>Open your chilled Mannvasam kit</li>
+            <li>Follow the step-by-step recipe card</li>
+            <li>Cook in a single pot, start to finish</li>
+            <li>Serve a meal that tastes home-made</li>
+          </ul>
+          <p class="compare-total"><span>Time saved</span>70–80%</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOLUTION ============ -->
+  <section class="section" style="background:var(--card)" id="solution">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">Our Solution</p>
+          <h2 class="section-title">From soil to sambar, <span class="italic">handled</span>.</h2>
+        </div>
+        <p class="section-note">We do the part nobody enjoys — sourcing, washing, cutting and portioning — so your part is just the fun one: cooking and eating.</p>
+      </div>
+      <div class="solution-grid" data-reveal-group>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><path d="M22 4c8 4 14 12 14 20a14 14 0 0 1-28 0C8 16 14 8 22 4Z" fill="#EAF0E7" stroke="#3F6B47" stroke-width="1.6"/></svg>
+          <h3>Farm-sourced daily</h3>
+          <p>Vegetables picked from trusted growers near Kanchipuram and processed the same day.</p>
+        </div>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><rect x="7" y="7" width="30" height="30" rx="8" fill="#EAF0E7" stroke="#3F6B47" stroke-width="1.6"/><path d="M15 22l5 5 9-11" stroke="#B5502E" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <h3>Hygienically prepped</h3>
+          <p>Cleaned and inspected under HACCP-aligned conditions before they ever reach a pack.</p>
+        </div>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><path d="M22 6l4 10 10 1-8 7 3 10-9-6-9 6 3-10-8-7 10-1 4-10Z" fill="#EAF0E7" stroke="#E3A83B" stroke-width="1.6"/></svg>
+          <h3>Pre-cut, exactly</h3>
+          <p>No washing, no peeling, no chopping — every piece arrives ready for the pan.</p>
+        </div>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><circle cx="22" cy="22" r="15" fill="#EAF0E7" stroke="#3F6B47" stroke-width="1.6"/><path d="M22 14v8l6 4" stroke="#B5502E" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>Portioned to the dish</h3>
+          <p>The exact quantity for the exact recipe — no guessing, no last-minute store runs.</p>
+        </div>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><path d="M8 30c8-18 20-18 28 0" stroke="#3F6B47" stroke-width="1.8" fill="none"/><path d="M13 30c5-12 13-12 18 0" stroke="#E3A83B" stroke-width="1.8" fill="none"/></svg>
+          <h3>Close to zero waste</h3>
+          <p>Use exactly what's in the pack — our kits cut household food waste by up to 90%.</p>
+        </div>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><path d="M10 26h24l-2.6 8.6a3 3 0 0 1-2.9 2.1H15.5a3 3 0 0 1-2.9-2.1L10 26Z" fill="#EAF0E7" stroke="#B5502E" stroke-width="1.6"/><path d="M14 26c0-6 4-11 8-11s8 5 8 11" stroke="#B5502E" stroke-width="1.6" fill="none"/></svg>
+          <h3>Ready to cook</h3>
+          <p>Authentic sambar, kuzhambu and chutney — made easier without being made lesser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section section-dark" id="how">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">How It Works</p>
+          <h2 class="section-title">From your cart to your table, in four steps.</h2>
+        </div>
+        <p class="section-note">Choose a dish, and we handle everything up to the point your pan touches the stove.</p>
+      </div>
+      <div class="process" data-reveal-group>
+        <div class="step" data-reveal>
+          <div class="step-dot">1</div>
+          <h4>Choose your kit</h4>
+          <p>Sambar, kara kuzhambu, coconut chutney, tomato chutney or rasam.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="step-dot">2</div>
+          <h4>We prep fresh</h4>
+          <p>Vegetables are sourced, washed, cut and portioned the same day.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="step-dot">3</div>
+          <h4>Delivered chilled</h4>
+          <p>Sealed and cold-chained to your door within the 2–8°C window.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="step-dot">4</div>
+          <h4>Cook &amp; serve</h4>
+          <p>Follow the recipe card. One pot, twelve minutes, done.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTS PREVIEW ============ -->
+  <section class="section" id="products-preview">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">Our Kits</p>
+          <h2 class="section-title">Five recipes. Nothing generic.</h2>
+        </div>
+        <a href="#products" class="btn btn-ghost">View All Kits
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="product-grid" data-reveal-group>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#F3E4D4">
+            <span class="product-tag">Medium</span><span class="product-time">12 min</span>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="58" r="30" fill="#B5502E"/><ellipse cx="50" cy="34" rx="34" ry="7" fill="#E3A83B"/><circle cx="38" cy="55" r="4" fill="#F3D48A"/><circle cx="55" cy="62" r="4" fill="#F3D48A"/><circle cx="62" cy="48" r="4" fill="#F3D48A"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Sambar Kit</h3>
+            <p>Drumstick, brinjal and pumpkin with semi-cooked dal and tamarind extract.</p>
+            <a href="#sambar" class="product-link">View Kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#F0DAD2">
+            <span class="product-tag">Hot</span><span class="product-time">12 min</span>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="58" r="30" fill="#8F3D22"/><ellipse cx="50" cy="34" rx="34" ry="7" fill="#B5502E"/><path d="M40 50q10-8 20 0" stroke="#F3D48A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Kara Kuzhambu Kit</h3>
+            <p>Shallots and drumstick in a fiery tamarind gravy base, ready in one pot.</p>
+            <a href="#kuzhambu" class="product-link">View Kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#EAF0E7">
+            <span class="product-tag">Mild</span><span class="product-time">8 min</span>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="55" r="28" fill="#FBF5E9" stroke="#3F6B47" stroke-width="2"/><circle cx="42" cy="50" r="4" fill="#3F6B47"/><circle cx="58" cy="50" r="4" fill="#3F6B47"/><circle cx="50" cy="62" r="4" fill="#3F6B47"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Thengai Chutney Kit</h3>
+            <p>Fresh-scraped coconut, roasted gram and green chilli, tempered in seconds.</p>
+            <a href="#coconut" class="product-link">View Kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#F4E1D6">
+            <span class="product-tag">Medium</span><span class="product-time">10 min</span>
+            <svg viewBox="0 0 100 100"><circle cx="42" cy="50" r="16" fill="#B5502E"/><circle cx="58" cy="55" r="18" fill="#8F3D22"/><circle cx="50" cy="66" r="14" fill="#B5502E"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Thakkali Chutney Kit</h3>
+            <p>Vine-ripe tomatoes slow-simmered with garlic and dried red chilli.</p>
+            <a href="#tomato" class="product-link">View Kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY DIFFERENT / STATS ============ -->
+  <section class="section section-dark" id="why">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">Why Mannvasam</p>
+          <h2 class="section-title">We don't just cut vegetables. We protect a recipe.</h2>
+        </div>
+        <p class="section-note">Every kit is built around a single traditional dish — not a generic vegetable box — so nothing about the method gets lost.</p>
+      </div>
+      <div class="stat-band" data-reveal-group>
+        <div class="stat" data-reveal><b><span data-count="70" data-suffix="%">0</span></b><span>Less time in the kitchen</span></div>
+        <div class="stat" data-reveal><b><span data-count="5">0</span></b><span>Heirloom recipes, done right</span></div>
+        <div class="stat" data-reveal><b><span data-count="90" data-suffix="%">0</span></b><span>Less vegetable waste</span></div>
+        <div class="stat" data-reveal><b><span data-count="0">0</span></b><span>Preservatives, always</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section" id="testimonials">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">Early Tasters</p>
+          <h2 class="section-title">What our first kitchens are saying.</h2>
+        </div>
+      </div>
+      <div class="testi-track" data-reveal-group>
+        <div class="testi-card" data-reveal>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"After a full day at work, cooking felt like the last thing I had energy for. This gets me a real sambar on the table in under fifteen minutes."</p>
+          <div class="testi-person">
+            <div class="testi-avatar">V</div>
+            <div><b>Visalakshi R.</b><span>Software Engineer · Chennai</span></div>
+          </div>
+        </div>
+        <div class="testi-card" data-reveal>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"I'd never cooked kuzhambu before. The recipe card made it foolproof — no guessing about spice or timing."</p>
+          <div class="testi-person">
+            <div class="testi-avatar">A</div>
+            <div><b>Arjun K.</b><span>Engineering Student · Chennai</span></div>
+          </div>
+        </div>
+        <div class="testi-card" data-reveal>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Portions are exact, so nothing sits half-used in my fridge anymore. Fewer grocery trips, less waste."</p>
+          <div class="testi-person">
+            <div class="testi-avatar">R</div>
+            <div><b>Ramesh N.</b><span>Private Employee · Velachery</span></div>
+          </div>
+        </div>
+        <div class="testi-card" data-reveal>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"I used to order in three or four nights a week. Now I actually cook, and it still tastes like home."</p>
+          <div class="testi-person">
+            <div class="testi-avatar">D</div>
+            <div><b>Divya S.</b><span>HR Professional · Taramani</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" style="background:var(--card)" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">FAQ</p>
+          <h2 class="section-title">Good questions, answered plainly.</h2>
+        </div>
+      </div>
+      <div class="faq-list" data-reveal>
+        <div class="faq-item is-open">
+          <button class="faq-q"><span>What exactly is Mannvasam?</span><span class="plus"></span></button>
+          <div class="faq-a" style="max-height:200px"><p>A meal kit built around one dish at a time — fresh, pre-cut vegetables and prepped essentials for authentic South Indian recipes, delivered ready to cook.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>How fresh are the ingredients?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>Vegetables are sourced from local farms and processed the same day, then kept cold-chained at 2–8°C until they reach your door.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>How long does cooking actually take?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>Most kits go from pack to plate in 8–15 minutes, in a single pot, following the included recipe card.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Do you add preservatives?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>No. Freshness is handled through cold chain and modified atmosphere packaging, not chemical preservatives.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Where do you currently deliver?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>We're launching in Chennai first, with plans to expand across Tamil Nadu. Enter your pincode at checkout to check availability.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-band" data-reveal>
+        <div>
+          <p class="eyebrow" style="color:var(--turmeric-lt)">Get In Touch</p>
+          <h2>Ready to cook tradition in minutes?</h2>
+        </div>
+        <div class="cta-actions">
+          <a href="#products" class="btn btn-primary">Explore Kits
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-ghost">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-hero" id="products">
+    <div class="wrap" data-reveal>
+      <p class="crumb">Our Kits</p>
+      <h1>Five dishes. Zero shortcuts.</h1>
+      <p>Every Mannvasam kit is built for exactly one recipe — nothing generic, nothing stretched. Pick a dish below and see exactly what's inside.</p>
+    </div>
+  </section>
+
+  <!-- ============ QUICK GRID ============ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">All Kits</p>
+          <h2 class="section-title">Choose tonight's dish.</h2>
+        </div>
+        <p class="section-note">Every pack ships chilled with a printed recipe card and a QR code linking to a guided video.</p>
+      </div>
+
+      <div class="product-grid" data-reveal-group>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#F3E4D4">
+            <span class="product-tag">Medium</span><span class="product-time">12 min</span>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="58" r="30" fill="#B5502E"/><ellipse cx="50" cy="34" rx="34" ry="7" fill="#E3A83B"/><circle cx="38" cy="55" r="4" fill="#F3D48A"/><circle cx="55" cy="62" r="4" fill="#F3D48A"/><circle cx="62" cy="48" r="4" fill="#F3D48A"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Sambar Kit</h3>
+            <p>Drumstick, brinjal and pumpkin with semi-cooked dal and tamarind extract.</p>
+            <a href="#sambar" class="product-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#F0DAD2">
+            <span class="product-tag">Hot</span><span class="product-time">12 min</span>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="58" r="30" fill="#8F3D22"/><ellipse cx="50" cy="34" rx="34" ry="7" fill="#B5502E"/><path d="M40 50q10-8 20 0" stroke="#F3D48A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Kara Kuzhambu Kit</h3>
+            <p>Shallots and drumstick in a fiery tamarind gravy base, ready in one pot.</p>
+            <a href="#kuzhambu" class="product-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#EAF0E7">
+            <span class="product-tag">Mild</span><span class="product-time">8 min</span>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="55" r="28" fill="#FBF5E9" stroke="#3F6B47" stroke-width="2"/><circle cx="42" cy="50" r="4" fill="#3F6B47"/><circle cx="58" cy="50" r="4" fill="#3F6B47"/><circle cx="50" cy="62" r="4" fill="#3F6B47"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Thengai Chutney Kit</h3>
+            <p>Fresh-scraped coconut, roasted gram and green chilli, tempered in seconds.</p>
+            <a href="#coconut" class="product-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#F4E1D6">
+            <span class="product-tag">Medium</span><span class="product-time">10 min</span>
+            <svg viewBox="0 0 100 100"><circle cx="42" cy="50" r="16" fill="#B5502E"/><circle cx="58" cy="55" r="18" fill="#8F3D22"/><circle cx="50" cy="66" r="14" fill="#B5502E"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Thakkali Chutney Kit</h3>
+            <p>Vine-ripe tomatoes slow-simmered with garlic and dried red chilli.</p>
+            <a href="#tomato" class="product-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="product-card" data-reveal>
+          <div class="product-media" style="background:#F3EAD6">
+            <span class="product-tag">Tangy</span><span class="product-time">9 min</span>
+            <svg viewBox="0 0 100 100"><ellipse cx="50" cy="58" rx="32" ry="24" fill="#E3A83B"/><circle cx="40" cy="50" r="3" fill="#8F3D22"/><circle cx="52" cy="46" r="3" fill="#8F3D22"/><circle cx="62" cy="54" r="3" fill="#8F3D22"/></svg>
+          </div>
+          <div class="product-body">
+            <h3>Rasam Kit</h3>
+            <p>Pepper, cumin and tomato with pre-extracted tamarind — a comforting, peppery broth.</p>
+            <a href="#rasam" class="product-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="product-card" data-reveal style="display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;">
+          <div>
+            <h3 style="margin-bottom:.6rem;">Want a dish added?</h3>
+            <p style="color:var(--ink-soft);font-size:.9rem;margin-bottom:1rem;">Tell us the recipe you miss most from home.</p>
+            <a href="#contact" class="btn btn-ghost">Suggest a Kit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETAIL: SAMBAR ============ -->
+  <section class="pd-block wrap" id="sambar">
+    <div class="pd-row" data-reveal>
+      <div class="pd-media" style="background:#F3E4D4">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="58" r="34" fill="#B5502E"/><ellipse cx="50" cy="30" rx="38" ry="8" fill="#E3A83B"/><circle cx="36" cy="54" r="5" fill="#F3D48A"/><circle cx="55" cy="63" r="5" fill="#F3D48A"/><circle cx="64" cy="46" r="5" fill="#F3D48A"/><circle cx="46" cy="40" r="5" fill="#F3D48A"/></svg>
+      </div>
+      <div>
+        <div class="pd-meta"><span class="pill">One-Pot</span><span class="pill">Medium Spice</span><span class="pill">Vegetarian</span><span class="pill">12 min</span></div>
+        <h2 class="section-title" style="margin-bottom:.9rem;">Sambar Kit</h2>
+        <p style="color:var(--ink-soft)">The everyday staple, made effortless. Drumstick, brinjal and pumpkin arrive pre-cut alongside semi-cooked toor dal and fresh tamarind extract — everything needed for a proper sambar, no prep required.</p>
+        <ul class="pd-includes">
+          <li>Pre-cut drumstick, brinjal &amp; pumpkin (250g)</li>
+          <li>Semi-cooked toor dal pouch</li>
+          <li>Fresh tamarind extract, pre-measured</li>
+          <li>Sambar powder blend &amp; tempering kit</li>
+          <li>Printed recipe card + QR video guide</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="margin-top:1.6rem;">Get Notified at Launch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETAIL: KUZHAMBU ============ -->
+  <section class="pd-block wrap" id="kuzhambu">
+    <div class="pd-row" data-reveal>
+      <div class="pd-media" style="background:#F0DAD2">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="58" r="34" fill="#8F3D22"/><ellipse cx="50" cy="30" rx="38" ry="8" fill="#B5502E"/><path d="M35 52q15-12 30 0" stroke="#F3D48A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M38 64q12-8 24 0" stroke="#F3D48A" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <div class="pd-meta"><span class="pill">One-Pot</span><span class="pill">Hot</span><span class="pill">Vegetarian</span><span class="pill">12 min</span></div>
+        <h2 class="section-title" style="margin-bottom:.9rem;">Kara Kuzhambu Kit</h2>
+        <p style="color:var(--ink-soft)">A bold, tangy tamarind gravy built around shallots and drumstick, roasted spice paste included. Simmers into a thick, fiery kuzhambu that keeps well for days — exactly like it should.</p>
+        <ul class="pd-includes">
+          <li>Peeled shallots &amp; cut drumstick (220g)</li>
+          <li>Roasted kuzhambu spice paste</li>
+          <li>Fresh tamarind extract, pre-measured</li>
+          <li>Gingelly oil tempering sachet</li>
+          <li>Printed recipe card + QR video guide</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="margin-top:1.6rem;">Get Notified at Launch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETAIL: COCONUT CHUTNEY ============ -->
+  <section class="pd-block wrap" id="coconut">
+    <div class="pd-row" data-reveal>
+      <div class="pd-media" style="background:#EAF0E7">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="55" r="32" fill="#FBF5E9" stroke="#3F6B47" stroke-width="2.5"/><circle cx="40" cy="48" r="5" fill="#3F6B47"/><circle cx="60" cy="48" r="5" fill="#3F6B47"/><circle cx="50" cy="63" r="5" fill="#3F6B47"/></svg>
+      </div>
+      <div>
+        <div class="pd-meta"><span class="pill">No-Cook</span><span class="pill">Mild</span><span class="pill">Vegetarian</span><span class="pill">8 min</span></div>
+        <h2 class="section-title" style="margin-bottom:.9rem;">Thengai Chutney Kit</h2>
+        <p style="color:var(--ink-soft)">Fresh coconut, scraped the same morning, paired with roasted gram and green chilli. Blend, temper with curry leaf and mustard seed, and it's on the table before the dosa finishes.</p>
+        <ul class="pd-includes">
+          <li>Fresh-scraped coconut (150g)</li>
+          <li>Roasted gram dal &amp; green chilli</li>
+          <li>Curry leaf &amp; mustard tempering sachet</li>
+          <li>A pinch of asafoetida included</li>
+          <li>Printed recipe card + QR video guide</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="margin-top:1.6rem;">Get Notified at Launch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETAIL: TOMATO CHUTNEY ============ -->
+  <section class="pd-block wrap" id="tomato">
+    <div class="pd-row" data-reveal>
+      <div class="pd-media" style="background:#F4E1D6">
+        <svg viewBox="0 0 100 100"><circle cx="42" cy="50" r="18" fill="#B5502E"/><circle cx="60" cy="56" r="20" fill="#8F3D22"/><circle cx="48" cy="68" r="16" fill="#B5502E"/></svg>
+      </div>
+      <div>
+        <div class="pd-meta"><span class="pill">One-Pot</span><span class="pill">Medium</span><span class="pill">Vegetarian</span><span class="pill">10 min</span></div>
+        <h2 class="section-title" style="margin-bottom:.9rem;">Thakkali Chutney Kit</h2>
+        <p style="color:var(--ink-soft)">Vine-ripe tomatoes, garlic and dried red chilli, slow-simmered down to a deep, tangy chutney that pairs with idli, dosa or a plain bowl of rice.</p>
+        <ul class="pd-includes">
+          <li>Vine-ripe chopped tomatoes (300g)</li>
+          <li>Peeled garlic &amp; dried red chilli</li>
+          <li>Mustard &amp; curry leaf tempering sachet</li>
+          <li>Jaggery pinch for balance</li>
+          <li>Printed recipe card + QR video guide</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="margin-top:1.6rem;">Get Notified at Launch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETAIL: RASAM ============ -->
+  <section class="pd-block wrap" id="rasam">
+    <div class="pd-row" data-reveal>
+      <div class="pd-media" style="background:#F3EAD6">
+        <svg viewBox="0 0 100 100"><ellipse cx="50" cy="58" rx="36" ry="26" fill="#E3A83B"/><circle cx="38" cy="50" r="3.5" fill="#8F3D22"/><circle cx="52" cy="45" r="3.5" fill="#8F3D22"/><circle cx="64" cy="55" r="3.5" fill="#8F3D22"/><circle cx="46" cy="66" r="3.5" fill="#8F3D22"/></svg>
+      </div>
+      <div>
+        <div class="pd-meta"><span class="pill">One-Pot</span><span class="pill">Peppery</span><span class="pill">Vegetarian</span><span class="pill">9 min</span></div>
+        <h2 class="section-title" style="margin-bottom:.9rem;">Rasam Kit</h2>
+        <p style="color:var(--ink-soft)">Crushed pepper and cumin, ripe tomato and pre-extracted tamarind — the broth that fixes a cold, a bad day, or a bland dinner. Comes together in under ten minutes.</p>
+        <ul class="pd-includes">
+          <li>Crushed pepper-cumin blend</li>
+          <li>Chopped tomato &amp; tamarind extract</li>
+          <li>Curry leaf &amp; ghee tempering sachet</li>
+          <li>Coriander leaf garnish included</li>
+          <li>Printed recipe card + QR video guide</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="margin-top:1.6rem;">Get Notified at Launch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-band" data-reveal>
+        <div>
+          <p class="eyebrow" style="color:var(--turmeric-lt)">Launching in Chennai</p>
+          <h2>Be first to cook with a Mannvasam kit.</h2>
+        </div>
+        <div class="cta-actions">
+          <a href="#contact" class="btn btn-primary">Join the Waitlist
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#about" class="btn btn-ghost">Our Story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-hero" id="about">
+    <div class="wrap" data-reveal>
+      <p class="crumb">About Us</p>
+      <h1>Built by people who missed home cooking.</h1>
+      <p>Mannvasam started as a weekend experiment between three friends who kept ordering in because chopping vegetables after work felt impossible. This is that experiment, grown up.</p>
+    </div>
+  </section>
+
+  <!-- ============ STORY ============ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">Our Story</p>
+          <h2 class="section-title">A kitchen problem, solved like engineers.</h2>
+        </div>
+        <p class="section-note">We didn't want another generic vegetable subscription. We wanted our grandmothers' sambar, without losing the evening to it.</p>
+      </div>
+
+      <div class="timeline" data-reveal>
+        <div class="tl-item">
+          <span>Late 2024</span>
+          <h4>The problem became personal</h4>
+          <p>Three friends, three different kitchens, the same excuse every night: "too tired to cook properly." Ordering in had quietly become the default.</p>
+        </div>
+        <div class="tl-item">
+          <span>Early 2025</span>
+          <h4>First kitchen test</h4>
+          <p>We began pre-cutting vegetables for our own families' sambar and kuzhambu — timing the prep, measuring the waste, refining the ratio by hand.</p>
+        </div>
+        <div class="tl-item">
+          <span>Mid 2025</span>
+          <h4>Sourcing partners in Kanchipuram</h4>
+          <p>We partnered with local farms for same-day sourcing and built a small hygienic processing space around HACCP-aligned practice.</p>
+        </div>
+        <div class="tl-item">
+          <span>2026</span>
+          <h4>Preparing to launch in Chennai</h4>
+          <p>Five recipes, cold-chain delivery and a waitlist of early tasters — Mannvasam is getting ready for its first city.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VALUES ============ -->
+  <section class="section section-dark">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">What We Believe</p>
+          <h2 class="section-title">Convenience shouldn't cost you the recipe.</h2>
+        </div>
+      </div>
+      <div class="value-grid" data-reveal-group>
+        <div class="solution-card" data-reveal style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)">
+          <svg class="solution-icon" viewBox="0 0 44 44"><path d="M22 4c8 4 14 12 14 20a14 14 0 0 1-28 0C8 16 14 8 22 4Z" fill="none" stroke="#E3A83B" stroke-width="1.6"/></svg>
+          <h3 style="color:#fff">Tradition first</h3>
+          <p style="color:#C9D6C6">Every kit follows a real family recipe — we don't simplify the method, only the prep.</p>
+        </div>
+        <div class="solution-card" data-reveal style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)">
+          <svg class="solution-icon" viewBox="0 0 44 44"><rect x="7" y="7" width="30" height="30" rx="8" fill="none" stroke="#E3A83B" stroke-width="1.6"/><path d="M15 22l5 5 9-11" stroke="#E3A83B" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <h3 style="color:#fff">Radical hygiene</h3>
+          <p style="color:#C9D6C6">Every batch is inspected, weighed and sealed under controlled, HACCP-aligned conditions.</p>
+        </div>
+        <div class="solution-card" data-reveal style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)">
+          <svg class="solution-icon" viewBox="0 0 44 44"><path d="M8 30c8-18 20-18 28 0" stroke="#E3A83B" stroke-width="1.8" fill="none"/></svg>
+          <h3 style="color:#fff">Waste, minimised</h3>
+          <p style="color:#C9D6C6">Exact portions mean farmers sell what's needed and households throw away less.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECHNOLOGY ============ -->
+  <section class="section" id="technology">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">Our Technology</p>
+          <h2 class="section-title">Freshness is a process, not a promise.</h2>
+        </div>
+        <p class="section-note">From farm to fridge, four checkpoints keep every pack safe, cold and free of preservatives.</p>
+      </div>
+
+      <div class="stat-band" style="margin-bottom:3rem;" data-reveal-group>
+        <div class="stat" data-reveal style="text-align:left"><b style="color:var(--clay)"><span data-count="4">0</span></b><span>Quality checkpoints</span></div>
+        <div class="stat" data-reveal style="text-align:left"><b style="color:var(--clay)">2–8°C</b><span>Cold chain range</span></div>
+        <div class="stat" data-reveal style="text-align:left"><b style="color:var(--clay)"><span data-count="0">0</span></b><span>Preservatives used</span></div>
+        <div class="stat" data-reveal style="text-align:left"><b style="color:var(--clay)"><span data-count="100" data-suffix="%">0</span></b><span>Farm traceability</span></div>
+      </div>
+
+      <div class="solution-grid" data-reveal-group>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><rect x="7" y="7" width="30" height="30" rx="8" fill="#EAF0E7" stroke="#3F6B47" stroke-width="1.6"/><path d="M15 22l5 5 9-11" stroke="#B5502E" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <h3>HACCP-aligned process</h3>
+          <p>International food-safety practice applied at every stage of handling and packing.</p>
+        </div>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><path d="M10 8h24v28H10z" fill="none" stroke="#3F6B47" stroke-width="1.6"/><path d="M10 18h24M10 28h24" stroke="#3F6B47" stroke-width="1.2"/></svg>
+          <h3>Unbroken cold chain</h3>
+          <p>Held between 2–8°C from our processing space to your doorstep, without a gap.</p>
+        </div>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><circle cx="22" cy="22" r="15" fill="#EAF0E7" stroke="#E3A83B" stroke-width="1.6"/><path d="M16 22h12M22 16v12" stroke="#E3A83B" stroke-width="1.6"/></svg>
+          <h3>Modified atmosphere packs</h3>
+          <p>Freshness preserved with a sealed gas mix instead of chemical preservatives.</p>
+        </div>
+        <div class="solution-card" data-reveal>
+          <svg class="solution-icon" viewBox="0 0 44 44"><path d="M22 6l4 10 10 1-8 7 3 10-9-6-9 6 3-10-8-7 10-1 4-10Z" fill="#EAF0E7" stroke="#B5502E" stroke-width="1.6"/></svg>
+          <h3>Multi-point inspection</h3>
+          <p>Visual, weight and seal checks on every single pack before it ships.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ short ============ -->
+  <section class="section section-dark">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">FSSAI &amp; Trust</p>
+          <h2 class="section-title">Certified, careful, and honest about what's inside.</h2>
+        </div>
+      </div>
+      <div class="stat-band" data-reveal-group>
+        <div class="stat" data-reveal><b>FSSAI</b><span>Licence-ready facility</span></div>
+        <div class="stat" data-reveal><b>No Additives</b><span>Only what a home kitchen would use</span></div>
+        <div class="stat" data-reveal><b>Local Farms</b><span>Sourced from the Kanchipuram belt</span></div>
+        <div class="stat" data-reveal><b>Small Batch</b><span>Processed in daily quantities only</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="eyebrow">Get In Touch</p>
+          <h2 class="section-title">Questions, feedback, or just say hello.</h2>
+        </div>
+        <p class="section-note">We're launching soon in Chennai — join the waitlist and we'll let you know the moment kits are ready in your area.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div data-reveal>
+          <div class="contact-card">
+            <h4>Email</h4>
+            <p><a href="mailto:hello@mannvasam.in">hello@mannvasam.in</a></p>
+          </div>
+          <div class="contact-card">
+            <h4>Phone / WhatsApp</h4>
+            <p><a href="tel:+919000000000">+91 90000 00000</a></p>
+          </div>
+          <div class="contact-card">
+            <h4>Location</h4>
+            <p>Kanchipuram, Tamil Nadu, India</p>
+          </div>
+        </div>
+
+        <form class="contact-card" data-reveal onsubmit="return handleDemoSubmit(event)">
+          <h4>Send a message</h4>
+          <div class="form-field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required>
+          </div>
+          <div class="form-field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-field">
+            <label for="pincode">Delivery pincode</label>
+            <input id="pincode" name="pincode" type="text" placeholder="e.g. 600001">
+          </div>
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell us what you'd love to see"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Join the Waitlist
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <p class="form-note">Demo form — this page is a front-end concept and does not send data anywhere.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+            <path d="M8 16h24l-2.4 15.2A4 4 0 0 1 25.7 35H14.3a4 4 0 0 1-3.9-3.8L8 16Z" fill="#B5502E"/>
+            <path d="M14 16c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#E3A83B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="brand-text"><b style="color:#fff">Mannvasam</b><span>Farm to Flame</span></span>
+        </a>
+        <p>Fresh, pre-cut, dish-specific meal kits for authentic South Indian cooking. No prep. No waste. Just real food, cooked by you.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Our Kits</h5>
+        <ul>
+          <li><a href="#sambar">Sambar Kit</a></li>
+          <li><a href="#kuzhambu">Kara Kuzhambu Kit</a></li>
+          <li><a href="#coconut">Thengai Chutney Kit</a></li>
+          <li><a href="#tomato">Thakkali Chutney Kit</a></li>
+          <li><a href="#rasam">Rasam Kit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:hello@mannvasam.in">hello@mannvasam.in</a></li>
+          <li><a href="tel:+919000000000">+91 90000 00000</a></li>
+          <li><a href="#contact">Kanchipuram, Tamil Nadu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mannvasam Foods Private Limited. All rights reserved. (Concept demo site)</span>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4.5a2.5 2.5 0 0 1 5 0V17"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-4.2-7.6L21 3l-1 4.2A9 9 0 0 1 21 12Z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Mannvasam — single-page interactions */
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ---------- header shrink on scroll ---------- */
+  const header = document.querySelector('.site-header');
+  const onScroll = () => header && header.classList.toggle('is-scrolled', window.scrollY > 30);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ---------- mobile nav toggle ---------- */
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('is-open');
+      links.classList.toggle('is-open');
+      document.body.style.overflow = links.classList.contains('is-open') ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      toggle.classList.remove('is-open');
+      links.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }));
+  }
+
+  /* ---------- scroll-spy: highlight the nav link for the section in view ---------- */
+  const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+  const spyTargets = navAnchors
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+  if ('IntersectionObserver' in window && spyTargets.length) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navAnchors.forEach(a => a.classList.remove('active'));
+        const match = navAnchors.find(a => a.getAttribute('href') === '#' + entry.target.id);
+        if (match) match.classList.add('active');
+      });
+    }, { threshold: 0.4, rootMargin: '-30% 0px -55% 0px' });
+    spyTargets.forEach(el => spy.observe(el));
+  }
+
+  /* ---------- scroll reveal ---------- */
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in-view'));
+  }
+
+  /* ---------- animated counters ---------- */
+  const counters = document.querySelectorAll('[data-count]');
+  if ('IntersectionObserver' in window && counters.length) {
+    const countIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const end = parseFloat(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        const decimals = el.dataset.count.includes('.') ? 1 : 0;
+        const duration = 1400;
+        const start = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = (end * eased).toFixed(decimals) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        countIo.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(el => countIo.observe(el));
+  }
+
+  /* ---------- FAQ accordion ---------- */
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    if (!q || !a) return;
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+      item.closest('.faq-list').querySelectorAll('.faq-item').forEach(other => {
+        other.classList.remove('is-open');
+        other.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('is-open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* ---------- demo contact form ---------- */
+  const contactForm = document.querySelector('#contact form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = contactForm.querySelector('button[type="submit"]');
+      const original = btn.innerHTML;
+      btn.innerHTML = "You're on the list ✓";
+      btn.style.opacity = .85;
+      setTimeout(() => { btn.innerHTML = original; btn.style.opacity = 1; contactForm.reset(); }, 2600);
+    });
+  }
+});
+
+</script>
+</body>
+</html>
